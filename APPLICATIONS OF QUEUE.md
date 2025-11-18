@@ -1,42 +1,70 @@
-# Exp.No:40  
-## APPLICATIONS OF QUEUE
+# Exp.No:32  
+## CONVERSION OF INFIX TO POSTFIX
 
 ---
 
 ### AIM  
-To write a Python program to implement CPU Process Scheduling using a queue.
+To write a Python program to convert a given Infix expression to Postfix expression by following the precedence and associative rules. The input expression contains only Division, Subtraction, and Bitwise AND operators. A dictionary is used to set the priority for operators, and a set is used to hold the operators used in the given expression.
 
 ---
 
-### ALGORITHM  
+### ALGORITHM
 
-1. Start the program.  
-2. Define the function `CalculateWaitingTime(at, bt, N)`.  
-3. Initialize a list `wt` of size `N` with all values set to 0.  
-4. Set `wt[0] = 0` for the first process.  
-5. Print the table header: "P.No.", "Arrival Time", "Burst Time", "Waiting Time".  
-6. Print the values for the first process.  
-7. For each process from index `1` to `N-1`:  
-   - Calculate `wt[i] = (at[i - 1] + bt[i - 1] + wt[i - 1]) - at[i]`.  
-   - Print the process number, arrival time, burst time, and waiting time.  
-8. Initialize `total_waiting_time = 0`.  
-9. Add up all waiting times.  
-10. Calculate average waiting time as `average = total_waiting_time / N`.  
-11. Print the average waiting time.  
-12. Get burst times as input from the user for 5 processes.  
-13. Call `CalculateWaitingTime()` with `at`, `bt`, and `N`.  
-14. End the program.
+1. **Start the program.**
+2. **Initialize an empty stack** and an empty output string.
+3. **Iterate through each character** in the infix expression:
+   - If the character is **not an operator**, append it directly to the output string.
+   - If the character is an **open parenthesis '('**, push it onto the stack.
+   - If the character is a **close parenthesis ')'**, pop from the stack and append to the output until encountering a left parenthesis '('.
+   - If the character is an **operator**, handle it based on precedence:
+     - While there’s an operator at the top of the stack with higher or equal precedence, pop the stack and append those operators to the output.
+     - Push the current operator onto the stack.
+4. **Use a priority dictionary** to define operator precedence, ensuring higher precedence operators are placed before lower precedence ones.
+5. Once the expression is fully processed, continue popping any remaining operators from the stack and append them to the output.
+6. **Return the final postfix expression.**
+7. **Print the result.**
+8. **End the program.**
 
 ---
 
-### PROGRAM  
+### PROGRAM
 
-```
+```python
+OPERATORS=set(['&','-','/','(',')'])
+PRIORITY={'&':1,'-':2,'/':3}
+def infixToPostfix(expression):
+    stack=[]
+    output=''
+    for character in expression:
+        if character not in OPERATORS:
+            output+=character
+        elif character=='(':
+            stack.append('(')
+        elif character==')':
+            while stack and stack[-1]!='(':
+                output+=stack.pop()
+            stack.pop()
+        else:
+            while stack and stack[-1]!='(' and PRIORITY[character]<=PRIORITY[stack[-1]]:
+                output+=stack.pop()
+            stack.append(character)
+    while stack:
+        output+=stack.pop()
+    return output
+expression=input()
+print("infix notation: ",expression)
+print("postfix notation: ",infixToPostfix(expression))
 
 ```
 
 ### OUTPUT
 
+![image](https://github.com/user-attachments/assets/12579ba2-8b29-4089-a0c0-77302054a994)
+
 
 ### RESULT
+
+Thus the python program to convert infix to postfix expression has been implemented and executed successfully.
+
+
 
