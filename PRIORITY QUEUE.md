@@ -1,37 +1,55 @@
-# Exp.No:37  
-## PRIORITY QUEUE
+# Exp.No:35  
+## TOWER OF HANOI
 
 ---
 
 ### AIM  
-To write a Python program for simple implementation of Priority Queue using Queue.
+To write a Python program to implement **Tower of Hanoi** and display all the moves of the disks using a recursive function.  
+Consider the names of the tower pegs as A, B, C. Get the number of disks value from the user.
 
 ---
 
-### ALGORITHM
+### ALGORITHM  
 
-1. Start the program.  
-2. Define a class `PriorityQueue` with an initializer to create an empty list `queue`.  
-3. Define the `__str__` method to return queue elements as a string separated by spaces.  
-4. Define the `isEmpty()` method to check if the queue is empty.  
-5. Define the `insert(data)` method to append the given data to the queue.  
-6. Define the `delete()` method to:  
-   - Initialize `max_val` as 0.  
-   - Loop through the queue and find the index of the maximum value.  
-   - Delete and return the element at that index.  
-7. In the main code, take integer input `n` for number of elements.  
-8. Loop `n` times to take input values and insert them into the priority queue.  
-9. Print the contents of the queue.  
-10. While the queue is not empty, call `delete()` and print each returned element.  
-11. End the program.
+1. **Start the program.**
+2. **Input** the number of disks `n`.
+3. **Print** the number of disks.
+4. Define a **recursive function** `TowerOfHanoi(n, source, destination, auxiliary)`:
+   - If `n == 1`:
+     - Print: "Move disk from source to destination".
+   - Else:
+     - Call `TowerOfHanoi(n - 1, source, auxiliary, destination)`  
+       → Move `n-1` disks from source to auxiliary using destination as helper.
+     - Print: "Move disk from source to destination"  
+       → Move the largest disk to the destination.
+     - Call `TowerOfHanoi(n - 1, auxiliary, destination, source)`  
+       → Move `n-1` disks from auxiliary to destination using source as helper.
+5. Call `TowerOfHanoi(n, 'A', 'C', 'B')` to start the process.
+6. **End the program.**
 
 ---
 
-### PROGRAM
+### PROGRAM  
 
-```
+```python
+
+def TowerOfHanoi(n , source, destination, auxiliary):
+    if(n>0):
+        TowerOfHanoi(n-1,source,auxiliary,destination)
+        print("Move disk from",source,"to",destination)
+        TowerOfHanoi(n-1,auxiliary,destination,source)
+n=int(input())
+print("No. of disks =",n)
+
 ```
 
 ### OUTPUT
 
+![image](https://github.com/user-attachments/assets/d3b944d8-67b7-4631-9310-c9f6193526be)
+
+
 ### RESULT
+
+Thus the program to implement **Tower of Hanoi** has been implemented and executed successfully.
+
+
